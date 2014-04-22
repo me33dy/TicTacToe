@@ -1,0 +1,24 @@
+<html x-ng-app="myApp">
+<head>
+	<title>Tic Tac Toe</title>
+	<script src="angular.min.js"></script>
+	<script src='main.js'></script>
+	<style type="text/css">
+	header { width: 384px; height: 64px; background-color: grey; margin-top: 48px; margin-bottom: 16px}
+	footer { width: 384px; height: 64px; background-color: blue; margin-top: 16px; clear: both;}
+	.mainBoard { width: 384px; height: 384px; background-color: yellow}
+	.mainBoard div { width: 124px; height: 124px; border: 2px solid black; float: left;}
+
+	body { width: 960px; text-align: center; }
+	</style>
+</head>
+<body x-ng-controller='GameController'>
+	<header></header>
+	<div class="mainBoard">
+		<div x-ng-repeat='c in cells track by $index'
+		x-ng-click="clickPlay($index)">{{c}}</div>
+	</div>
+	<footer></footer>
+
+</body>
+</html>
