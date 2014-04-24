@@ -1,0 +1,5 @@
+{
+  "firebase": "room1super",
+  "public": "app",
+  "rules": "config/security-rules.json"
+}

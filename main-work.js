@@ -3,19 +3,18 @@ myApp.controller('GameController', function ($scope) {
 	$scope.cells = ['', '', '', '', '', '', '', '', ''];
 	$scope.isXTurn = true;
 	$scope.moves = 9;
+	$scope.anyWinner = false;
 	$scope.clickPlay = function (Cellindex)
 			{
 				if($scope.cells[Cellindex] === '')
 					{
 					$scope.cells[Cellindex] = $scope.isXTurn?'X':'O';
-					// $scope.moves--;
-					// console.log($scope.moves);
+					$scope.moves--;
 					$scope.isXTurn = !$scope.isXTurn;
 					$scope.checkWin();
 					}
 			};
 	$scope.winColumn = [
-							// $scope.cells[0], $scope.cells[1], $scope.cells[2]
 							[0, 1, 2],
 							[3, 4, 5],
 							[6, 7, 8],
@@ -32,7 +31,8 @@ myApp.controller('GameController', function ($scope) {
 				{
 					if($scope.cells[$scope.winColumn[i][0]] == $scope.cells[$scope.winColumn[i][1]] &&
 					   $scope.cells[$scope.winColumn[i][0]] == $scope.cells[$scope.winColumn[i][2]])				
-					{
+					{	
+						$scope.anyWinner = true;
 						if(	$scope.cells[$scope.winColumn[i][0]] == 'X')
 						{
 							console.log("playerX win");
@@ -42,6 +42,10 @@ myApp.controller('GameController', function ($scope) {
 							console.log("playerO win");
 						}
 					}
+					else if ($scope.moves==0 && $scope.anyWinner==false)
+						{
+							console.log("Tie Game");
+						}
 				}
 			};
 
