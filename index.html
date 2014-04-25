@@ -1,17 +1,24 @@
 <html x-ng-app="myApp">
 <head>
 	<title>Tic Tac Toe</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+	<script src="https://cdn.firebase.com/v0/firebase.js"></script>
+	<script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
 	<script src="angular.min.js"></script>
 	<script src='main-work.js'></script>
 	<style type="text/css">
-	header { width: 384px; height: 64px; background-color: grey; margin-top: 48px; margin-bottom: 16px}
+	header { width: 384px; height: 64px; background-color: gray; margin-top: 48px; margin-bottom: 16px}
 	footer { width: 384px; height: 64px; margin-top: 16px; clear: both; border: 3px solid black; border-radius: 15px}
 	footer div { postion: relative;}
 	.mainBoard { width: 384px; height: 384px; background-color: yellow}
 	.mainBoard div { width: 124px; height: 124px; border: 2px solid black; float: left;}
 	#mainContainer { width: 384px; margin: 0 auto;}
 	p {line-height: 24px; font-size: 20px}
-	#playerX { float: left; margin-left: 64px; position:absolute;}
+	#playerX { float: left; margin-left: 64px; position:absolute; 
+		-webkit-transition: all .75s ease-in-out;
+		transition: all .75s ease-in-out;} 
+	#X-anim { left:348px;}
 	#playerO { float: right; margin-right:; position: absolute;}
 
 	body { width: 960px; margin: 0 auto; }
@@ -21,12 +28,12 @@
 	<div id="mainContainer">
 	<header><p></p></header>
 	<div class="mainBoard">
-		<div x-ng-repeat='c in cells track by $index'
+		<div x-ng-repeat='c in game.cells track by $index'
 		x-ng-click="clickPlay($index)">{{c}}</div>
 	</div>
 	<footer>
 		<div id="conX"><p id="playerX">PlayerX</p></div>
-		<div id="conY"><p id="playerO">playerO</p></div>
+		<!-- <div id="conY"><p id="playerO">playerO</p></div> left: 284px-->
 	</footer>
 	</div>
 </body>
