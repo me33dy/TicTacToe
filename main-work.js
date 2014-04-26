@@ -2,7 +2,7 @@ var myApp = angular.module('myApp', ['firebase']);
 myApp.controller('GameController', function ($scope, $firebase) {
 	var tttRef = new Firebase("https://room1super.firebaseio.com/games");
 	var playerNum;
-	// $scope.cells = ['', '', '', '', '', '', '', '', ''];
+	
 
 	tttRef.once("value", function(data)
 	{
@@ -54,7 +54,7 @@ myApp.controller('GameController', function ($scope, $firebase) {
 
 	$scope.clickPlay = function (Cellindex)
 			{	
-				if($scope.game.cells[Cellindex] === '' && checkTurn())
+				if(($scope.game.cells[Cellindex] === '') && (checkTurn()) && ($scope.game.anyWinner==false))
 				{
 					$scope.game.cells[Cellindex] = $scope.game.isXTurn?'X':'O';
 					$scope.game.moves--;
@@ -78,8 +78,9 @@ myApp.controller('GameController', function ($scope, $firebase) {
 		{
 			for(var i=0; i < $scope.winColumn.length; i++)
 			{
-				if($scope.game.cells[$scope.winColumn[i][0]] == $scope.game.cells[$scope.winColumn[i][1]] &&
-				   $scope.game.cells[$scope.winColumn[i][0]] == $scope.game.cells[$scope.winColumn[i][2]])				
+				if(($scope.game.cells[$scope.winColumn[i][0]]!=0)&&
+				   ($scope.game.cells[$scope.winColumn[i][0]] == $scope.game.cells[$scope.winColumn[i][1]]) &&
+				   ($scope.game.cells[$scope.winColumn[i][0]] == $scope.game.cells[$scope.winColumn[i][2]]))				
 				{	
 					$scope.game.anyWinner = true;
 					if(	$scope.game.cells[$scope.winColumn[i][0]] == 'X')
