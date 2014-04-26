@@ -8,7 +8,7 @@
 	<script src="angular.min.js"></script>
 	<script src='main-work.js'></script>
 	<style type="text/css">
-	header { width: 384px; height: 64px; background-color: gray; margin-top: 48px; margin-bottom: 16px}
+	header { width: 384px; height: 64px; background-color: gray; margin-top: 48px; margin-bottom: 16px; text-align: center}
 	footer { width: 384px; height: 64px; margin-top: 16px; clear: both; border: 3px solid black; border-radius: 15px}
 	footer div { postion: relative;}
 	.mainBoard { width: 384px; height: 384px; background-color: yellow}
@@ -26,7 +26,7 @@
 </head>
 <body x-ng-controller='GameController'>
 	<div id="mainContainer">
-	<header><p></p></header>
+	<header><p>{{game.message}}</p></header>
 	<div class="mainBoard">
 		<div x-ng-repeat='c in game.cells track by $index'
 		x-ng-click="clickPlay($index)">{{c}}</div>

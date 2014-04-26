@@ -3,7 +3,6 @@ myApp.controller('GameController', function ($scope, $firebase) {
 	var tttRef = new Firebase("https://room1super.firebaseio.com/games");
 	var playerNum;
 	
-
 	tttRef.once("value", function(data)
 	{
 		var lastGame;
@@ -20,7 +19,7 @@ myApp.controller('GameController', function ($scope, $firebase) {
 		 		//Find the Angular version of this game
 		 		lastGame = tttRef.child(lastKey);
 		// 		//whose turn = 1 for player 1, 2 for player 2, 3 for player 1 won, 4 for player 2 won, and 5 for a draw
-		 		lastGame.set ({moves: 9,isXTurn: true, anyWinner: false, waiting: false, cells: ['', '', '', '', '', '', '', '', '']} );
+		 		lastGame.set ({moves: 9,isXTurn: true, anyWinner: false, waiting: false, message: '', cells: ['', '', '', '', '', '', '', '', '']} );
 	 			playerNum = 2;
 			} 
 			else 
@@ -34,7 +33,7 @@ myApp.controller('GameController', function ($scope, $firebase) {
 		 else 
 		 {
 		  //This is like when someone opened the page and wanted to start playing
-		  lastGame = tttRef.push ({waiting:true});
+		  lastGame = tttRef.push({waiting:true});
 		  playerNum = 1;
 		}
 		$scope.game = $firebase(lastGame);
@@ -85,16 +84,16 @@ myApp.controller('GameController', function ($scope, $firebase) {
 					$scope.game.anyWinner = true;
 					if(	$scope.game.cells[$scope.winColumn[i][0]] == 'X')
 					{
-						console.log("playerX win");
+						$scope.game.message="playerX Win";
 					}
 					else if($scope.game.cells[$scope.winColumn[i][0]] == 'Y')
 					{
-						console.log("playerO win");
+						$scope.game.message="playerY Win";
 					}
 				}
 				else if ($scope.game.moves==0 && $scope.game.anyWinner==false)
 					{
-						console.log("Tie Game");
+						$scope,game.message="Tie Game";
 					}
 			}
 		};
