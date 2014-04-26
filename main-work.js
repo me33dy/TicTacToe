@@ -1,19 +1,14 @@
 var myApp = angular.module('myApp', ['firebase']);
 myApp.controller('GameController', function ($scope, $firebase) {
 	var tttRef = new Firebase("https://room1super.firebaseio.com/games");
-	
+	var playerNum;
 	// $scope.cells = ['', '', '', '', '', '', '', '', ''];
-	
-	
-	
-	
 
-	tttRef.once("value", function(data){
+	tttRef.once("value", function(data)
+	{
 		var lastGame;
 		var games = data.val();
-		console.log(data.val());
 		
-		//Get the real objects out of angularified blob
 		if (games != null) 
 		{
 		 	var keys = Object.keys(games); //Get all the screwy text keys
@@ -26,13 +21,13 @@ myApp.controller('GameController', function ($scope, $firebase) {
 		 		lastGame = tttRef.child(lastKey);
 		// 		//whose turn = 1 for player 1, 2 for player 2, 3 for player 1 won, 4 for player 2 won, and 5 for a draw
 		 		lastGame.set ({moves: 9,isXTurn: true, anyWinner: false, waiting: false, cells: ['', '', '', '', '', '', '', '', '']} );
-	 			// player1 = false;
+	 			playerNum = 2;
 			} 
 			else 
 			{
 		// 		//This is like when someone opened the page and wanted to start playing
 				lastGame = tttRef.push( {waiting: true} );
-		 		// player1 = true;
+		 		playerNum = 1;
 		    }
 		//we have no game
 		}
@@ -40,16 +35,26 @@ myApp.controller('GameController', function ($scope, $firebase) {
 		 {
 		  //This is like when someone opened the page and wanted to start playing
 		  lastGame = tttRef.push ({waiting:true});
-		  // player1 = true;
+		  playerNum = 1;
 		}
-
 		$scope.game = $firebase(lastGame);
 		
 	});
 
+	function checkTurn () {
+		if((playerNum==1 && $scope.game.isXTurn==true) || (playerNum==2 && $scope.game.isXTurn==false))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	};
+
 	$scope.clickPlay = function (Cellindex)
-			{
-				if($scope.game.cells[Cellindex] === '')
+			{	
+				if($scope.game.cells[Cellindex] === '' && checkTurn())
 				{
 					$scope.game.cells[Cellindex] = $scope.game.isXTurn?'X':'O';
 					$scope.game.moves--;
