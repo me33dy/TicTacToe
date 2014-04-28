@@ -1,1 +1,7 @@
-style.css
+header { width: 384px; height: 64px; margin-top: 48px; margin-bottom: 16px; text-align: center; border-radius: 15px;border: 3px solid black }
+footer { width: 384px; height: 64px; margin-top: 16px; clear: both; border: 3px solid black; border-radius: 15px; text-align: center;}
+p {line-height: 24px; font-size: 20px;text-align: center; font-family: verdana }
+body { width: 960px; margin: 0 auto; }
+.mainBoard { width: 384px; height: 384px; background-color: yellow}
+.mainBoard div { width: 124px; height: 124px; border: 2px solid black; float: left; text-align: center; }
+#mainContainer { width: 384px; margin: 0 auto;}

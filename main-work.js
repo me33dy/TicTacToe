@@ -2,6 +2,7 @@ var myApp = angular.module('myApp', ['firebase']);
 myApp.controller('GameController', function ($scope, $firebase) {
 	var tttRef = new Firebase("https://room1super.firebaseio.com/games");
 	var playerNum;
+	$scope.name = '';
 	
 	tttRef.once("value", function(data)
 	{
@@ -19,12 +20,15 @@ myApp.controller('GameController', function ($scope, $firebase) {
 			
 				lastGame.set ({moves: 9,isXTurn: true, anyWinner: false, waiting: false, message: '', cells: ['', '', '', '', '', '', '', '', '']} );
 				playerNum = 2;
+				$scope.name = 'playerO';
+
 			}
 			else 
 			{
 			//This is like when someone opened the page and wanted to start playing
 				lastGame = tttRef.push( {waiting: true} );
 		 		playerNum = 1;
+		 		$scope.name = 'playerX';
 			}
 		//no game
 		}
@@ -33,6 +37,7 @@ myApp.controller('GameController', function ($scope, $firebase) {
 		//opened the page and wanted to start playing
 			lastGame = tttRef.push({waiting:true});
 			playerNum = 1;
+			$scope.name = 'playerX';
 		}
 		$scope.game = $firebase(lastGame);
 	});
@@ -83,8 +88,8 @@ myApp.controller('GameController', function ($scope, $firebase) {
 			for(var i=0; i < $scope.winColumn.length; i++)
 			{
 				if(($scope.game.cells[$scope.winColumn[i][0]]!=0)&&
-				   ($scope.game.cells[$scope.winColumn[i][0]] == $scope.game.cells[$scope.winColumn[i][1]]) &&
-				   ($scope.game.cells[$scope.winColumn[i][0]] == $scope.game.cells[$scope.winColumn[i][2]]))				
+					($scope.game.cells[$scope.winColumn[i][0]] == $scope.game.cells[$scope.winColumn[i][1]]) &&
+					($scope.game.cells[$scope.winColumn[i][0]] == $scope.game.cells[$scope.winColumn[i][2]]))				
 				{	
 					$scope.game.anyWinner = true;
 					if(	$scope.game.cells[$scope.winColumn[i][0]] == 'X')

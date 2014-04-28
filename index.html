@@ -7,34 +7,27 @@
 	<script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
 	<script src="angular.min.js"></script>
 	<script src='main-work.js'></script>
-	<style type="text/css">
-	header { width: 384px; height: 64px; margin-top: 48px; margin-bottom: 16px; text-align: center; border-radius: 15px;border: 3px solid black }
-	footer { width: 384px; height: 64px; margin-top: 16px; clear: both; border: 3px solid black; border-radius: 15px; text-align: center;}
-	
-	.mainBoard { width: 384px; height: 384px; background-color: yellow}
-	.mainBoard div { width: 124px; height: 124px; border: 2px solid black; float: left; text-align: center; }
-	#mainContainer { width: 384px; margin: 0 auto;}
-	p {line-height: 24px; font-size: 20px;text-align: center; font-family: verdana }
-
-
-	body { width: 960px; margin: 0 auto; }
-	</style>
+	<link rel='stylesheet' type='text/css' href='style.css'>
 </head>
 <body x-ng-controller='GameController'>
 	<div id="mainContainer">
-	<header><p x-ng-show="game.waiting">WAITING...</p>
-		<p>{{game.message}}</p></header>
-	<div class="mainBoard">
-		<div x-ng-repeat='c in game.cells track by $index'
-		x-ng-click="clickPlay($index)"><p>{{c}}<p></div>
-	</div>
-	<footer>
-		<div>
-			<!-- <input type="text" placeholder="name" x-ng-model="newName">
-			<input type="submit" value="play" x-ng-click=> -->
-			<!-- <p>PlayerX</p></div> -->
-		
-	</footer>
+		<header>
+			<p x-ng-show="game.waiting">WAITING...</p>
+			<p>{{game.message}}</p>
+		</header>
+		<div class="mainBoard">
+			<div x-ng-repeat='c in game.cells track by $index'
+			x-ng-click="clickPlay($index)">
+				<p>{{c}}<p>
+			</div>
+		</div>
+		<footer>
+			<div>
+				<!-- <input type="text" placeholder="name" x-ng-model="newName">
+				<input type="submit" value="play" x-ng-click=> -->
+				<p>{{name}}</p></div>
+			
+		</footer>
 	</div>
 </body>
 </html>
