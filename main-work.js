@@ -8,39 +8,44 @@ myApp.controller('GameController', function ($scope, $firebase) {
 		var lastGame;
 		var games = data.val();
 		
-		if (games != null) 
+		if(games != null)
 		{
-		 	var keys = Object.keys(games); //Get all the screwy text keys
-		    var lastKey = keys[keys.length-1]; //Find the last key
-		    lastGame = games[lastKey]; //Use the last key to get the last game object
-		    if (lastGame.waiting==true) 
-		    {
-		  		//Currently someone is waiting to play
-		 		//Find the Angular version of this game
-		 		lastGame = tttRef.child(lastKey);
-		// 		//whose turn = 1 for player 1, 2 for player 2, 3 for player 1 won, 4 for player 2 won, and 5 for a draw
-		 		lastGame.set ({moves: 9,isXTurn: true, anyWinner: false, waiting: false, message: '', cells: ['', '', '', '', '', '', '', '', '']} );
-	 			playerNum = 2;
-			} 
+			var keys = Object.keys(games); //Get all the screwy text keys
+			var lastKey = keys[keys.length-1]; //Find the last key
+			lastGame = games[lastKey]; //Use the last key to get the last game object
+			if(lastGame.waiting==true)
+			{
+				lastGame = tttRef.child(lastKey);
+			
+				lastGame.set ({moves: 9,isXTurn: true, anyWinner: false, waiting: false, message: '', cells: ['', '', '', '', '', '', '', '', '']} );
+				playerNum = 2;
+			}
 			else 
 			{
-		// 		//This is like when someone opened the page and wanted to start playing
+			//This is like when someone opened the page and wanted to start playing
 				lastGame = tttRef.push( {waiting: true} );
 		 		playerNum = 1;
-		    }
-		//we have no game
+			}
+		//no game
 		}
-		 else 
-		 {
-		  //This is like when someone opened the page and wanted to start playing
-		  lastGame = tttRef.push({waiting:true});
-		  playerNum = 1;
+		else 
+		{
+		//opened the page and wanted to start playing
+			lastGame = tttRef.push({waiting:true});
+			playerNum = 1;
 		}
 		$scope.game = $firebase(lastGame);
-		
 	});
 
-	function checkTurn () {
+	
+	$scope.playerInfo = 
+	{
+		playerName: '',
+		inputStatus: false
+	};
+
+	function checkTurn () 
+	{
 		if((playerNum==1 && $scope.game.isXTurn==true) || (playerNum==2 && $scope.game.isXTurn==false))
 		{
 			return true;

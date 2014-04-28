@@ -8,32 +8,32 @@
 	<script src="angular.min.js"></script>
 	<script src='main-work.js'></script>
 	<style type="text/css">
-	header { width: 384px; height: 64px; background-color: gray; margin-top: 48px; margin-bottom: 16px; text-align: center}
-	footer { width: 384px; height: 64px; margin-top: 16px; clear: both; border: 3px solid black; border-radius: 15px}
-	footer div { postion: relative;}
+	header { width: 384px; height: 64px; margin-top: 48px; margin-bottom: 16px; text-align: center; border-radius: 15px;border: 3px solid black }
+	footer { width: 384px; height: 64px; margin-top: 16px; clear: both; border: 3px solid black; border-radius: 15px; text-align: center;}
+	
 	.mainBoard { width: 384px; height: 384px; background-color: yellow}
-	.mainBoard div { width: 124px; height: 124px; border: 2px solid black; float: left;}
+	.mainBoard div { width: 124px; height: 124px; border: 2px solid black; float: left; text-align: center; }
 	#mainContainer { width: 384px; margin: 0 auto;}
-	p {line-height: 24px; font-size: 20px}
-	#playerX { float: left; margin-left: 64px; position:absolute; 
-		-webkit-transition: all .75s ease-in-out;
-		transition: all .75s ease-in-out;} 
-	#X-anim { left:348px;}
-	#playerO { float: right; margin-right:; position: absolute;}
+	p {line-height: 24px; font-size: 20px;text-align: center; font-family: verdana }
+
 
 	body { width: 960px; margin: 0 auto; }
 	</style>
 </head>
 <body x-ng-controller='GameController'>
 	<div id="mainContainer">
-	<header><p>{{game.message}}</p></header>
+	<header><p x-ng-show="game.waiting">WAITING...</p>
+		<p>{{game.message}}</p></header>
 	<div class="mainBoard">
 		<div x-ng-repeat='c in game.cells track by $index'
-		x-ng-click="clickPlay($index)">{{c}}</div>
+		x-ng-click="clickPlay($index)"><p>{{c}}<p></div>
 	</div>
 	<footer>
-		<div id="conX"><p id="playerX">PlayerX</p></div>
-		<!-- <div id="conY"><p id="playerO">playerO</p></div> left: 284px-->
+		<div>
+			<!-- <input type="text" placeholder="name" x-ng-model="newName">
+			<input type="submit" value="play" x-ng-click=> -->
+			<!-- <p>PlayerX</p></div> -->
+		
 	</footer>
 	</div>
 </body>
